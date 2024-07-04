@@ -2,8 +2,11 @@ import { useRouter } from 'next/router'
 import React, { Fragment, useState } from 'react'
 import Button from '../../components/elements/Button';
 import Input from '../../components/elements/Input';
+import { useDispatch } from 'react-redux';
+import { toggleCart } from '../../store/reducers/cart';
 
-const Slug = () => {
+const Slug = ({addToCart}) => {
+  const dispatch = useDispatch();
   const router = useRouter();
   const { slug } = router.query;
   const [pin, setPin] = useState()
@@ -100,6 +103,12 @@ const Slug = () => {
                     hoverBg={"hover:bg-cyan-500"}
                     color={"text-black"}
                     text={"Add to Cart"}
+                    onClick={
+                      ()=>{
+                        addToCart(slug, 1, 499, "T-Shirt(XL, Red)", "XL", "Red");
+                        dispatch(toggleCart());
+                      }
+                    }
                     size={"ml-5 md:ml-10 text-xs"}
                     arrow={true}/>
                   <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
